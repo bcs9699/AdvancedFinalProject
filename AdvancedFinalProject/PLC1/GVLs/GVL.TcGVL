@@ -3,6 +3,73 @@
   <GVL Name="GVL" Id="{ab95a793-e106-4adf-a3e7-761095c7de4f}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+	
+//HMI
+	
+
+
+
+//Factory IO 
+	//Inputs
+		// MACH CNTR BUSY
+			b_IN_0: BOOL;
+		// MACH CNTR ERR
+			b_IN_1: BOOL;
+		// CONTAIN EMIT PE
+			b_IN_2: BOOL;
+		// BASE VISION SENS
+			b_IN_3: BOOL;
+		// INPUT CONV 1 PE
+			b_IN_4: BOOL;
+		// INPUT PICKUP PE
+			b_IN_5: BOOL;
+		// OUT DEP CONV PE
+			b_IN_6: BOOL;
+		// OUT CONV 1 PE
+			b_IN_7: BOOL;
+		// OUT CONV 2 PE
+			b_IN_8: BOOL;
+		// CRANE MOVE X
+			b_IN_9: BOOL;
+		// CRANE MOVE Z
+			b_IN_10: BOOL;
+		// CRANE LEFT LS
+			b_IN_11: BOOL;
+		// CRANE RIGHT LS
+			b_IN_12: BOOL;
+		// CRANE MID LS
+			b_IN_13: BOOL;
+		// MACH CENTER ERROR
+			b_IN_14: BOOL;
+	//Outputs
+		// RAW MAT EMIT
+			b_OUT_0: BOOL;
+		// MACH LIDS
+			b_OUT_1: BOOL;
+		// CONTAIN CONV EMIT
+			b_OUT_2: BOOL;
+		// CONTAIN CONV MS
+			b_OUT_3: BOOL;
+		// CONV PICK MS
+			b_OUT_4: BOOL;
+		// OUT DEP CONV MS
+			b_OUT_5: BOOL;
+		// OUT CONV 1 MS
+			b_OUT_6: BOOL;
+		// OUT CONV 2 MS
+			b_OUT_7: BOOL;
+		// OUT CONV REMOVE
+			b_OUT_8: BOOL;
+		// CRANE LIFT
+			b_OUT_9: BOOL;
+		// CRANE LEFT
+			b_OUT_10: BOOL;
+		// CRANE RIGHT
+			b_OUT_11: BOOL;
+		// INPUT CONV 1 MS
+			b_OUT_12: BOOL;
+		// CNC MACH RESET
+			b_OUT_13: BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
