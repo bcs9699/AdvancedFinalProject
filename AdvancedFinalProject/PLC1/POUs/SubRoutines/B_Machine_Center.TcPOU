@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="B_Machine_Center" Id="{3e4d3224-3762-4348-b9d0-c1bc5aaf686a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM B_Machine_Center
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

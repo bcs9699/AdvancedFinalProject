@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="C_Input_Conveyor" Id="{ae909e4b-00fd-4efe-9211-6b3fe4a651e9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM C_Input_Conveyor
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

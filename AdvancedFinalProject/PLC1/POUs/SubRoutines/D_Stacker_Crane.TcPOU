@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="D_Stacker_Crane" Id="{9c2f9b6f-2022-40b9-9992-9ea206d7a92c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM D_Stacker_Crane
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="A_System_Start" Id="{67f0491b-a046-4a4e-bb45-135b412ac55d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM A_System_Start
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

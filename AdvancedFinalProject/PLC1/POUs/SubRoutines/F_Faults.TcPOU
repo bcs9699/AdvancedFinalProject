@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_Faults" Id="{4e32251a-45ed-4bd7-b243-fab3917a6db3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM F_Faults
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
