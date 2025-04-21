@@ -3,10 +3,21 @@
   <POU Name="A_System_Start" Id="{67f0491b-a046-4a4e-bb45-135b412ac55d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM A_System_Start
 VAR
+Initialize_Trigger : R_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF GVL.bSystemStart THEN
+	GVL.SystemRun := TRUE;
+END_IF
+Initialize_Trigger(CLK:= GVL.bSystemStart, Q=> );
+
+IF Initialize_Trigger.Q THEN	
+	FIO.b_OUT_2 := TRUE;//Starts Emitter
+	FIO.b_OUT_3 := FALSE;// Stops conveyor 1
+	FIO.b_OUT_12 := FALSE;// Stops Conveyor 2
+	FIO.b_OUT_4 := FALSE;// Stops Conveyor 3
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

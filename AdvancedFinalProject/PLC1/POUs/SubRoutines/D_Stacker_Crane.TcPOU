@@ -3,10 +3,52 @@
   <POU Name="D_Stacker_Crane" Id="{9c2f9b6f-2022-40b9-9992-9ea206d7a92c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM D_Stacker_Crane
 VAR
+	// Crane Commanded to move
+	CraneCMND: BOOL;
+	// Current Crane position state
+	CranePosition: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF GVL.ContainerWaiting THEN
+	CraneCMND := TRUE;
+END_IF
+
+IF CraneCMND THEN
+	CranePosition := 0;
+END_IF
+
+CASE CranePosition OF
+	0://Default Position lowered
+		FIO.r_out_0:= 0; 		// Crane Position
+		FIO.b_OUT_9 := FALSE; 	// Crane Lift
+		FIO.b_OUT_10 := FALSE;	//Crane Left (DROPOFF)
+		FIO.b_OUT_11 := FALSE;	//Crane Right (Receive)
+		
+		IF (NOT (FIO.b_IN_9 OR FIO.b_IN_10)) AND FIO.b_IN_13 THEN
+			CranePosition := 10;
+		END_IF
+	10://Pickup lowered
+		FIO.r_out_0:= 0; 		// Crane Position
+		FIO.b_OUT_9 := FALSE; 	// Crane Lift
+		FIO.b_OUT_10 := FALSE;	//Crane Left (DROPOFF)
+		FIO.b_OUT_11 := TRUE;	//Crane Right (Receive)
+	20://Pickup raised
+		FIO.r_out_0:= 0; 		// Crane Position
+		FIO.b_OUT_9 := TRUE; 	// Crane Lift
+		FIO.b_OUT_10 := FALSE;	//Crane Left (DROPOFF)
+		FIO.b_OUT_11 := TRUE;	//Crane Right (Receive)
+	30://DefaultPosition raised
+		FIO.r_out_0:= 0; 		// Crane Position
+		FIO.b_OUT_9 := TRUE; 	// Crane Lift
+		FIO.b_OUT_10 := FALSE;	//Crane Left (DROPOFF)
+		FIO.b_OUT_11 := FALSE;	//Crane Right (Receive)
+	40://Commanded Location queue lowered
+	50://Commanded Location queue raised
+	60://Commanded Location raised
+	70://Commanded Location lowered
+	80://Commanded Location queue lowered
+END_CASE]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -1,75 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL" Id="{ab95a793-e106-4adf-a3e7-761095c7de4f}">
+  <GVL Name="GVL" Id="{0c821d1f-093b-4240-bec7-e300c6a1078a}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
+	bSystemStart : BOOL := FALSE; 			//HMI Start
+    bAutoMode : BOOL := FALSE;				//HMI Auto
+    bCNCOn : BOOL := FALSE;					//HMI CNC ON
+    bRetrieveCMD : BOOL := FALSE;			//HMI Retrieve command
+    bReset : BOOL := FALSE;					//HMI Reset
+
+    iProductID : INT := 4000;				//Current Product ID
+    arrStoredIDs : ARRAY[1..15] OF INT;		//Array of stored products
+    //arrExitIDs : ARRAY[1..15] OF INT;
+    iStorageCount : INT := 0;				//num of stored items
+    iExitCount : INT := 0;					//num of retrieved items
+
+    bFaultDetected : BOOL := FALSE;			//global fault indicator
+    sFaultMessage : STRING := '';			//global fault message
 	
-//HMI
-	
+	// Indicates System is in run state
+	SystemRun: BOOL;
+	// Box ID of queued Container
+	QueuedBoxID: INT;
+	// Box Waiting for crane
+	ContainerWaiting: BOOL;
+END_VAR
 
-
-
-//Factory IO 
-	//Inputs
-		// MACH CNTR BUSY
-			b_IN_0: BOOL;
-		// MACH CNTR ERR
-			b_IN_1: BOOL;
-		// CONTAIN EMIT PE
-			b_IN_2: BOOL;
-		// BASE VISION SENS
-			b_IN_3: BOOL;
-		// INPUT CONV 1 PE
-			b_IN_4: BOOL;
-		// INPUT PICKUP PE
-			b_IN_5: BOOL;
-		// OUT DEP CONV PE
-			b_IN_6: BOOL;
-		// OUT CONV 1 PE
-			b_IN_7: BOOL;
-		// OUT CONV 2 PE
-			b_IN_8: BOOL;
-		// CRANE MOVE X
-			b_IN_9: BOOL;
-		// CRANE MOVE Z
-			b_IN_10: BOOL;
-		// CRANE LEFT LS
-			b_IN_11: BOOL;
-		// CRANE RIGHT LS
-			b_IN_12: BOOL;
-		// CRANE MID LS
-			b_IN_13: BOOL;
-		// MACH CENTER ERROR
-			b_IN_14: BOOL;
-	//Outputs
-		// RAW MAT EMIT
-			b_OUT_0: BOOL;
-		// MACH LIDS
-			b_OUT_1: BOOL;
-		// CONTAIN CONV EMIT
-			b_OUT_2: BOOL;
-		// CONTAIN CONV MS
-			b_OUT_3: BOOL;
-		// CONV PICK MS
-			b_OUT_4: BOOL;
-		// OUT DEP CONV MS
-			b_OUT_5: BOOL;
-		// OUT CONV 1 MS
-			b_OUT_6: BOOL;
-		// OUT CONV 2 MS
-			b_OUT_7: BOOL;
-		// OUT CONV REMOVE
-			b_OUT_8: BOOL;
-		// CRANE LIFT
-			b_OUT_9: BOOL;
-		// CRANE LEFT
-			b_OUT_10: BOOL;
-		// CRANE RIGHT
-			b_OUT_11: BOOL;
-		// INPUT CONV 1 MS
-			b_OUT_12: BOOL;
-		// CNC MACH RESET
-			b_OUT_13: BOOL;
-END_VAR]]></Declaration>
+]]></Declaration>
   </GVL>
 </TcPlcObject>

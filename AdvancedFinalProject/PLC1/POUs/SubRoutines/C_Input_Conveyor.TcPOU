@@ -3,10 +3,57 @@
   <POU Name="C_Input_Conveyor" Id="{ae909e4b-00fd-4efe-9211-6b3fe4a651e9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM C_Input_Conveyor
 VAR
+
+
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[// When no containers queued for crane.
+IF NOT GVL.ContainerWaiting THEN 
+	//If there is a full container, move it along the conveyor
+	IF FIO.b_IN_2 AND FIO.b_IN_3 THEN
+		FIO.b_OUT_2 := FALSE;//Stops Emitter
+		FIO.b_OUT_3 := TRUE;// Starts Conveyor 1
+		FIO.b_OUT_12 := TRUE;// Starts Conveyor 2
+	END_IF
+	
+	//If the conveyor reaches the first sensor, it stops the first section of the conveyor, starts the third, and emits a new empty container
+	IF  FIO.b_IN_4 THEN
+		FIO.b_OUT_2 := TRUE; // Emit new container
+		FIO.b_OUT_3 := FALSE;// Stops conveyor 1
+		FIO.b_OUT_12 := TRUE;// Starts Conveyor 2
+		FIO.b_OUT_4 := TRUE;// Starts Conveyor 3
+	END_IF
+	//If the crane has a container in its loading queue, it stops the conveyor until it is picked up.
+	IF  FIO.b_IN_5 THEN
+		FIO.b_OUT_2 := FALSE;//Stops emitter
+		GVL.QueuedBoxID := GVL.iProductID;
+		GVL.iProductID := GVL.iProductID +1;
+		GVL.ContainerWaiting := TRUE;//Sets box waiting to true
+		FIO.b_OUT_12 := FALSE;	// stops conveyor 2
+		FIO.b_OUT_4 := FALSE;	//stops conveyor 3
+	END_IF
+END_IF
+
+// If one container is queued for crane
+IF GVL.ContainerWaiting THEN 
+	//If there is a full container, move it along the conveyor
+	IF FIO.b_IN_2 AND FIO.b_IN_3 THEN
+		FIO.b_OUT_3 := TRUE;// Starts Conveyor 1
+		FIO.b_OUT_12 := TRUE;// Starts Conveyor 2
+	END_IF
+	
+	//If the conveyor reaches the first sensor, it stops both sections of the conveyor
+	IF  FIO.b_IN_4 THEN
+		FIO.b_OUT_3 := FALSE;// Stops conveyor 1
+		FIO.b_OUT_12 := FALSE;// Stops Conveyor 2
+	END_IF
+	
+	//If the crane has a container in its loading queue, it stops the conveyor until it is picked up.
+	IF  NOT FIO.b_IN_5 THEN
+		GVL.ContainerWaiting := FALSE;//Sets container waiting to false. Switches to first statement
+	END_IF
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

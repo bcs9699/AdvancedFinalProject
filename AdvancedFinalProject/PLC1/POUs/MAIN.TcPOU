@@ -6,12 +6,16 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[A_System_Start();
-B_Machine_Center();
-C_Input_Conveyor();
-D_Stacker_Crane();
-E_Output_Conveyor();
-F_Faults();
+      <ST><![CDATA[AssignInsOuts();
+
+//IF bSystemStart THEN
+    A_System_Start();
+    B_Machine_Center();
+    C_Input_Conveyor();
+    D_Stacker_Crane();
+    E_Output_Conveyor();
+    F_Faults();
+//END_IF
 ]]></ST>
     </Implementation>
   </POU>

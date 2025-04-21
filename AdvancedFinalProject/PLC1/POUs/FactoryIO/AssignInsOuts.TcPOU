@@ -5,21 +5,25 @@
 VAR
 	//Factory IO
 	FactoryIO_Ins : ARRAY [0..15] OF BYTE;
+	FactoryIO_RegIns : ARRAY [0..7] OF WORD;
 	FactoryIO_Outs : ARRAY [0..15] OF BYTE;
-	FactoryIO_RegOuts : ARRAY [0..7] OF BYTE;
+	FactoryIO_RegOuts : ARRAY [0..7] OF WORD;
 	
 	//FIO Function Blocks
 	FactoryIO_ReadInsFB : FB_MBReadInputs;
 	FactoryIO_WriteOutsFB : FB_MBWriteCoils;
+	FactoryIO_ReadRegsFB : FB_MBReadInputRegs;
+	FactoryIO_WriteRegsFB : FB_MBWriteRegs;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Reads Inputs and Writes Outputs to FactoryIO
 
+
 FactoryIO_ReadInsFB(
 	sIPAddr:= '127.0.0.1' , 
-	nTCPPort:= 75, 
+	nTCPPort:= 505, 
 	nUnitID:= 1, 
 	nQuantity:= 16, 
 	nMBAddr:= 0, 
@@ -31,12 +35,30 @@ FactoryIO_ReadInsFB(
 	bError=> , 
 	nErrId=> , 
 	cbRead=> );
-
 FactoryIO_ReadInsFB(bExecute:=FALSE);
+
+
+FactoryIO_ReadRegsFB(
+	sIPAddr:= '127.0.0.1', 
+	nTCPPort:= 505, 
+	nUnitID:= 1, 
+	nQuantity:= 8, 
+	nMBAddr:= 0, 
+	cbLength:=  SIZEOF(AssignInsOuts.FactoryIO_RegIns), 
+	pDestAddr:= ADR(AssignInsOuts.FactoryIO_RegIns), 
+	bExecute:= TRUE, 
+	tTimeout:= T#1S, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> , 
+	cbRead=> );
+FactoryIO_ReadRegsFB(bExecute := FALSE);
+
+
 
 FactoryIO_WriteOutsFB(
 	sIPAddr:= '127.0.0.1', 
-	nTCPPort:= 75, 
+	nTCPPort:= 505, 
 	nUnitID:= 1, 
 	nQuantity:= 16, 
 	nMBAddr:= 0, 
@@ -47,46 +69,68 @@ FactoryIO_WriteOutsFB(
 	bBusy=> , 
 	bError=> , 
 	nErrId=> );
-	
 FactoryIO_WriteOutsFB(bExecute:=FALSE);
+
+
+
+FactoryIO_WriteRegsFB(
+	sIPAddr:= '127.0.0.1', 
+	nTCPPort:= 505, 
+	nUnitID:= 1, 
+	nQuantity:= 8, 
+	nMBAddr:= 0, 
+	cbLength:= SIZEOF(AssignInsOuts.FactoryIO_regOuts), 
+	pSrcAddr:= ADR(AssignInsOuts.FactoryIO_regOuts), 
+	bExecute:= TRUE, 
+	tTimeout:= T#1S, 
+	bBusy=> , 
+	bError=> , 
+	nErrId=> );
+FactoryIO_WriteRegsFB(bExecute := FALSE);
 	
 
 
 
 
 //Link Inputs from FactoryIO
-GVL.b_IN_0 := NOT FactoryIO_Ins [0].0;
-GVL.b_IN_1 := NOT FactoryIO_Ins [0].1;
-GVL.b_IN_2 := NOT FactoryIO_Ins [0].2;
-GVL.b_IN_3 := NOT FactoryIO_Ins [0].3;
-GVL.b_IN_4 := NOT FactoryIO_Ins [0].4;
-GVL.b_IN_5 := NOT FactoryIO_Ins [0].5;
-GVL.b_IN_6 := NOT FactoryIO_Ins [0].6;
-GVL.b_IN_7 := NOT FactoryIO_Ins [0].7;
-GVL.b_IN_8 := NOT FactoryIO_Ins [1].0;
-GVL.b_IN_9 := NOT FactoryIO_Ins [1].1;
-GVL.b_IN_10 := NOT FactoryIO_Ins [1].2;
-GVL.b_IN_11 := NOT FactoryIO_Ins [1].3;
-GVL.b_IN_12 := NOT FactoryIO_Ins [1].4;
-GVL.b_IN_13 := NOT FactoryIO_Ins [1].5;
-GVL.b_IN_14 := NOT FactoryIO_Ins [1].6;
+FIO.b_IN_0 :=  FactoryIO_Ins [0].0;
+FIO.b_IN_1 :=  FactoryIO_Ins [0].1;
+FIO.b_IN_2 :=  FactoryIO_Ins [0].2;
+FIO.b_IN_3 :=  FactoryIO_Ins [0].3;
+FIO.b_IN_4 :=  FactoryIO_Ins [0].4;
+FIO.b_IN_5 :=  FactoryIO_Ins [0].5;
+FIO.b_IN_6 :=  FactoryIO_Ins [0].6;
+FIO.b_IN_7 :=  FactoryIO_Ins [0].7;
+FIO.b_IN_8 :=  FactoryIO_Ins [1].0;
+FIO.b_IN_9 :=  FactoryIO_Ins [1].1;
+FIO.b_IN_10 :=  FactoryIO_Ins [1].2;
+FIO.b_IN_11 :=  FactoryIO_Ins [1].3;
+FIO.b_IN_12 :=  FactoryIO_Ins [1].4;
+FIO.b_IN_13 :=  FactoryIO_Ins [1].5;
+FIO.b_IN_14 :=  FactoryIO_Ins [1].6;
+FIO.b_IN_15 :=  FactoryIO_Ins [1].6;
+
+FIO.r_IN_0 := FactoryIO_RegIns [0];
+FIO.r_IN_1 := FactoryIO_RegIns [1];
 
 
 //Link Outputs to FactoryIO
-FactoryIO_Outs [0].0 := GVL.b_OUT_0;
-FactoryIO_Outs [0].1 := GVL.b_OUT_1;
-FactoryIO_Outs [0].2 := GVL.b_OUT_2;
-FactoryIO_Outs [0].3 := GVL.b_OUT_3;
-FactoryIO_Outs [0].4 := GVL.b_OUT_4;
-FactoryIO_Outs [0].5 := GVL.b_OUT_5;
-FactoryIO_Outs [0].6 := GVL.b_OUT_6;
-FactoryIO_Outs [0].7 := GVL.b_OUT_7;
-FactoryIO_Outs [1].0 := GVL.b_OUT_8;
-FactoryIO_Outs [1].1 := GVL.b_OUT_9;
-FactoryIO_Outs [1].2 := GVL.b_OUT_10;
-FactoryIO_Outs [1].2 := GVL.b_OUT_11;
-FactoryIO_Outs [1].2 := GVL.b_OUT_12;
-FactoryIO_Outs [1].2 := GVL.b_OUT_13;
+FactoryIO_Outs [0].0 := FIO.b_OUT_0;
+FactoryIO_Outs [0].1 := FIO.b_OUT_1;
+FactoryIO_Outs [0].2 := FIO.b_OUT_2;
+FactoryIO_Outs [0].3 := FIO.b_OUT_3;
+FactoryIO_Outs [0].4 := FIO.b_OUT_4;
+FactoryIO_Outs [0].5 := FIO.b_OUT_5;
+FactoryIO_Outs [0].6 := FIO.b_OUT_6;
+FactoryIO_Outs [0].7 := FIO.b_OUT_7;
+FactoryIO_Outs [1].0 := FIO.b_OUT_8;
+FactoryIO_Outs [1].1 := FIO.b_OUT_9;
+FactoryIO_Outs [1].2 := FIO.b_OUT_10;
+FactoryIO_Outs [1].3 := FIO.b_OUT_11;
+FactoryIO_Outs [1].4 := FIO.b_OUT_12;
+FactoryIO_Outs [1].5 := FIO.b_OUT_13;
+
+FactoryIO_RegOuts[0] := FIO.r_out_0;
 
 
 

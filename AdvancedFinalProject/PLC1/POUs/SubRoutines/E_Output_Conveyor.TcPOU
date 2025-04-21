@@ -3,6 +3,8 @@
   <POU Name="E_Output_Conveyor" Id="{a733b235-15fe-412f-9436-a7e0b3cb5f1b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM E_Output_Conveyor
 VAR
+
+
 END_VAR
 ]]></Declaration>
     <Implementation>
