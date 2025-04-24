@@ -9,7 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[FIO.b_OUT_1 := FALSE;
 FIO.b_OUT_0 := FALSE; //Sets raw emitter to default off
-IF (NOT FIO.b_IN_0) AND FIO.b_IN_2 THEN
+IF (NOT FIO.b_IN_0) AND FIO.b_IN_2  THEN
 	FIO.b_OUT_0 := TRUE;
 	FIO.b_OUT_1 := TRUE;
 	

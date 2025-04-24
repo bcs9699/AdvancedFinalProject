@@ -4,11 +4,43 @@
     <Declaration><![CDATA[PROGRAM E_Output_Conveyor
 VAR
 
+WaitTimer : TON;
 
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[
+
+
+GVL.ContainerWaitingOutput := FIO.b_IN_6;
+
+
+IF GVL.ContainerWaitingOutput AND NOT FIO.b_IN_7  THEN
+	FIO.b_OUT_5 := TRUE;
+	FIO.b_OUT_6 := TRUE;
+END_IF
+
+IF FIO.b_IN_7 AND NOT FIO.b_IN_8 THEN
+	FIO.b_OUT_5 := FALSE;
+	FIO.b_OUT_6 := TRUE;
+	FIO.b_OUT_7 := TRUE;
+END_IF
+IF FIO.b_IN_7 AND  FIO.b_IN_8 THEN
+	FIO.b_OUT_5 := FALSE;
+	FIO.b_OUT_6 := FALSE;
+	FIO.b_OUT_7 := FALSE;
+END_IF
+
+IF FIO.b_IN_8 THEN
+	IF NOT FIO.b_OUT_5 THEN
+		FIO.b_OUT_6 := FALSE;
+	END_IF
+	FIO.b_OUT_7 := FALSE;
+	WaitTimer(IN:= TRUE, PT:= T#10S, Q=> , ET=> );
+ELSE
+	WaitTimer(IN:= FALSE, PT:= T#10S, Q=> , ET=> );
+END_IF
+FIO.b_OUT_8 := WaitTimer.Q;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

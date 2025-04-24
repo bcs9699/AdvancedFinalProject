@@ -19,11 +19,23 @@ VAR_GLOBAL
     sFaultMessage : STRING := '';			//global fault message
 	
 	// Indicates System is in run state
-	SystemRun: BOOL;
+	SystemRun: BOOL := FALSE;
 	// Box ID of queued Container
-	QueuedBoxID: INT;
+	QueuedBoxID: INT := 0;
 	// Box Waiting for crane
-	ContainerWaiting: BOOL;
+	ContainerWaitingInput: BOOL := FALSE;
+	
+	ContainerWaitingOutput : BOOL := FALSE;
+	
+	//Warehouse has reached 15 box capacity
+	WarehouseFull : BOOL := FALSE;
+	
+	//If crane is in input mode
+	InputtingBoxes : BOOL := TRUE;
+	//If crane is in output mode
+	OutputtingBoxes : BOOL := FALSE;
+	//Commanded location of crane
+	CommandedLocation : INT :=1;
 END_VAR
 
 ]]></Declaration>
