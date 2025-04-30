@@ -7,7 +7,11 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[IF FIO.b_IN_1 AND GVL.bReset THEN 
+	FIO.b_OUT_13 := TRUE;
+ELSE
+	FIO.b_OUT_13 := FALSE;
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

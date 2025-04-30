@@ -10,8 +10,8 @@ VAR_GLOBAL
     bReset : BOOL := FALSE;					//HMI Reset
 
     iProductID : INT := 4000;				//Current Product ID
-    arrStoredIDs : ARRAY[1..15] OF INT;		//Array of stored products
-    //arrExitIDs : ARRAY[1..15] OF INT;
+    arrStoredIDs : ARRAY[1..15] OF INT := [0];		//Array of stored products
+    arrExitIDs : ARRAY[1..15] OF INT:= [0];		//Array of exited products
     iStorageCount : INT := 0;				//num of stored items
     iExitCount : INT := 0;					//num of retrieved items
 

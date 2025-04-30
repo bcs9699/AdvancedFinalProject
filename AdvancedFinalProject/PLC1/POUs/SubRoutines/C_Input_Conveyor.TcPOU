@@ -28,8 +28,8 @@ IF NOT GVL.ContainerWaitingInput THEN
 	//If the crane has a container in its loading queue, it stops the conveyor until it is picked up.
 	IF  FIO.b_IN_5 THEN
 		FIO.b_OUT_2 := FALSE;//Stops emitter
-		GVL.QueuedBoxID := GVL.iProductID;
-		GVL.iProductID := GVL.iProductID +1;
+		//GVL.QueuedBoxID := GVL.iProductID;
+		//GVL.iProductID := GVL.iProductID +1;
 		GVL.ContainerWaitingInput := TRUE;//Sets box waiting to true
 		FIO.b_OUT_12 := FALSE;	// stops conveyor 2
 		FIO.b_OUT_4 := FALSE;	//stops conveyor 3
