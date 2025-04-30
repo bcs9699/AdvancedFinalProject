@@ -8,8 +8,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[AssignInsOuts();
 
-//IF bSystemStart THEN
-    A_System_Start();
+
+A_System_Start();
+IF gvl.bSystemStart THEN
 	IF GVL.SystemRun THEN
 		B_Machine_Center();
 		C_Input_Conveyor();
@@ -17,7 +18,7 @@ END_VAR
 		E_Output_Conveyor();
 	END_IF
     F_Faults();
-//END_IF
+END_IF
 ]]></ST>
     </Implementation>
   </POU>
