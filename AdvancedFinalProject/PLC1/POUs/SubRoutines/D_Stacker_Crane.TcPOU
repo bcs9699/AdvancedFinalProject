@@ -100,9 +100,12 @@ IF gvl.InputtingBoxes AND (NOT GVL.OutputtingBoxes) THEN
 		FIO.b_OUT_10 := TRUE;	//Crane Left (DROPOFF)
 		FIO.b_OUT_11 := FALSE;	//Crane Right (Receive)
 		timer(IN:= TRUE, PT:= T#500MS, Q=> , ET=> );
+		GVL.arrStoredIDs[GVL.CommandedLocation] := GVL.iProductID; 
 		IF (NOT (FIO.b_IN_9 OR FIO.b_IN_10)) AND FIO.b_IN_11 AND timer.q THEN
 			CranePosition := 80;
 			timer(IN := FALSE);
+			GVL.arrStoredIDs[GVL.CommandedLocation] := GVL.iProductID; 
+			GVL.iProductID := GVL.iProductID +1;
 		END_IF
 	80://Commanded Location queue lowered
 		FIO.r_out_0:= TO_WORD(gvl.CommandedLocation); 		// Crane Position
@@ -217,6 +220,7 @@ IF gvl.OutputtingBoxes AND (NOT GVL.InputtingBoxes) THEN
 		IF timer.Q  THEN
 			CranePosition := 90;
 			timer(IN := FALSE);
+			GVL.arrExitIDs[GVL.CommandedLocation] := GVL.arrStoredIDs[GVL.CommandedLocation]; 
 		END_IF
 	90://Default Position lowered
 		FIO.r_out_0:= 99; 		// Crane Position
